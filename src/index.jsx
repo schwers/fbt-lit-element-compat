@@ -3,87 +3,115 @@ import fbt, {
   init as initFbt,
   IntlViewerContext,
 } from 'fbt';
-import React from 'react';
-import ReactDOM from 'react-dom';
+
+import {
+  LitElement,
+  html,
+  customElement,
+} from 'lit-element';
 
 const LOCALE = 'en-US';
-
 IntlViewerContext.locale = LOCALE;
 initFbt({ translations: {
   [ LOCALE ]: {},
 }})
 
-const logAndReThrow = (testName, err) => {
-  setTimeout(() => {
-    console.error(`Error running test: ${ testName }`);
-    throw err;
-  });
-};
-
-const SyntaxTest = () => (
-  <div>
-    Simple Inferno JSX syntax test
-  </div>
-);
-
-try {
-  ReactDOM.render(
-    <SyntaxTest />,
-    document.getElementById('inferno-jsx-syntax'),
-  );
-} catch (e) {
-  logAndReThrow('inferno-jsx syntax should always work', e);
+@customElement('lit-fbt-test-one')
+export class TestOne extends LitElement {
+  render() {
+    return html`<div>Test one, ensure LitElement is working<div>`;
+  }
 }
 
-const BoldItalicSyntaxText = () => (
-  <div>
-    <fbt desc='testing strong and italic params'>
-      Inferno JSX with <strong>bold</strong> and <em>italic</em> markup
-    </fbt>
-  </div>
-);
-
-try {
-  ReactDOM.render(
-    <BoldItalicSyntaxText />,
-    document.getElementById('inferno-fbt-jsx-bold-italic'),
-  );
-} catch (e) {
-  logAndReThrow('inferno-jsx syntax should always work', e);
+@customElement('lit-fbt-test-two')
+export class TestTwo extends LitElement {
+  render() {
+    return html`<div>
+      Test two, call out to fbt simple jsx:
+      ${ <fbt desc="test two">testing fbt</fbt> }
+    </div>`;
+  }
 }
 
-const FbtParamTest = () => {
-  const param = 'FbtParam';
+/* Example of inability to use basic html auto-params
+ * Throws a compiler error. To test:
+ *   - comment other TestThree implementation
+ *   - uncomment this.
+ *   - run `npm start` if not doing so already to view compiler error
+ *
+@customElement('lit-fbt-test-three')
+export class TestThree extends LitElement {
+  render() {
+    return html`<div>
+      Test three, try fbt auto-params:
+      ${ <fbt desc='bold param'><strong>bold</strong></fbt> }
+    </div>`;
+  }
+}
+*/
 
-  return (
-    <div>
-      <fbt desc='testing FbtParam tag'>
-        Testing <FbtParam name='param name'>{ param }</FbtParam> syntax
-      </fbt>
-    </div>
-  )
-};
+/* Example of inability to make nested usage of lit-element markup
+ * Throws a compiler error. To test:
+ *   - comment other TestThree implementation
+ *   - uncomment this.
+ *   - run `npm start` if not doing so already to view compiler error
+ *
+@customElement('lit-fbt-test-three')
+export class TestThree extends LitElement {
+  render() {
+    return html`<div>
+      Test three, try making params manually:
+      ${ <fbt desc='={bold}'>
+          <fbt.param>
+            { html`<strong>$
+              ${ <fbt desc="=bold"><fbt.param>bold</fbt.param></fbt> }
+            </strong>` }
+          </fbt.param>
+        </fbt> }
+    </div>`;
+  }
+}
+*/
 
-try {
-  ReactDOM.render(
-    <FbtParamTest />,
-    document.getElementById('inferno-fbt-param-jsx-syntax'),
-  );
-} catch (e) {
-  logAndReThrow('<FBTParam /> in inferno JSX', e)
+@customElement('lit-fbt-test-three')
+export class TestThree extends LitElement {
+  render() {
+    return html`<div>
+      Test three, call fbt programmatically:
+      ${ fbt("calling fbt directly", "test three") }
+    </div>`;
+  }
 }
 
-const ProgrammaticFBTTest = () => (
-  <div>
-    { fbt('fbt programmatic test', 'description') }
-  </div>
-);
+/* Example of inability to make nested usage of lit-element markup
+ * Throws a compiler error. To test:
+ *   - comment other TestThree implementation
+ *   - uncomment this.
+ *   - run `npm start` if not doing so already to view compiler error
+@customElement('lit-fbt-test-four')
+export class TestFour extends LitElement {
+  render() {
+    return html`<div>
+      Test four, try making params manually:
+      ${ <fbt desc='={bold}'>
+          next is bold:
+          <fbt.param>
+            { html`<strong>$
+              ${ <fbt desc="=bold"><fbt.param>{ 'bold' }</fbt.param></fbt> }
+            </strong>` }
+          </fbt.param>
+        </fbt> }
+    </div>`;
+  }
+}
+*/
 
-try {
-  ReactDOM.render(
-    <ProgrammaticFBTTest />,
-    document.getElementById('inferno-fbt-programmatic'),
-  );
-} catch (e) {
-  logAndReThrow('fbt() function syntax in inferno JSX', e);
+@customElement('lit-fbt-test-four')
+export class TestFour extends LitElement {
+  render() {
+    return html`<div>
+      Test four, try fbt programmatic call with params:
+      ${ fbt('Hello, ' + fbt.param('test param',  'fbt'), 'test four, params') }
+    </div>`;
+  }
 }

@@ -1,26 +1,22 @@
-# FBT Inferno Compat testing
+# FBT LitElement Compatability testing
 
-This repo aims to demonstrate issues using fbt with Inferno's inferno-compat mod.
+This repo aims to demonstrate issues using fbt with LitElement and fbt
 
 ## Packages Details
 * webpack&babel are used to compile
 * webpack-devserver handles hosting the example page as well as HMR
 * fbt and its plugins
-* [inferno-compat](https://www.npmjs.com/package/inferno-compat)
-  * inferno-compat is a shim for migrating from an existing React application to using [Inferno](https://infernojs.org/). It is installed in addition to inferno, its indivdual feature pacakges, and babel-plugin-inferno. It works by using [webpack's module alias'ing](/webpack.config.js) to convert imports of `react` and `react-dom` into `inferno-compat` (which itself is a shim layer to `inferno`)
-  * Note: `inferno`'s `babel-plugin-inferno` is necessary as well, as it will convert JSX into `inferno`'s vDom format.
-
+* [Lit-Element](https://lit-element.polymer-project.org/)
 
 ## Tests and Entrypoint
-[`src/index.jsx`](/src/index.jsx) is written with React and attempts to render four lines of text. Lines 2-4 each test different features of FBT:
-* simple usage of FBT JSX api, includes nested `<strong />` and `<em >` tags.
-* Params via `<FbtParam >`
-* Rendering programmatic call to `fbt()`
+[`src/index.jsx`](/src/index.jsx) is written to show some examples of using fbt's jsx and programmatic syntax with LitElement. The LitElements defined are registered with the browser, and their html is hardcoded in [`dist/index.html`](/dist/index.html)
 
 ### Running
 To run this test,
 `npm install && npm start`, then visit `http://localhost:8080` and open a developer console to view stack traces.
 
-There should be four lines of text rendered. Currently there are two, with the last two tests throwing the following errors:
+However please note that as is, there are no run-time errors, there are commented out build-time errors in [`src/index.jsx`](/src/index.jsx). Pictured below are the result of un-commenting said errors.
 
-![InfernoFBT Errors](/inferno-fbt-stacktraces.png?raw=true)
+![LitFBTAutoParametrization error](/test-lit-auto-params.png?raw=true "Test AutoParametrization in Lit")
+
+![LitFBTManual](/test-manually-making-fbt-params.png?raw=true "Test manual params in Lit")

@@ -12,12 +12,7 @@ module.exports = {
     ]
   },
   resolve: {
-    alias: {
-      'react': 'inferno-compat',
-      'react-dom': 'inferno-compat',
-      'inferno': 'inferno/dist/index.dev.esm.js'
-    },
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jx']
   },
   output: {
     path: __dirname + '/dist',

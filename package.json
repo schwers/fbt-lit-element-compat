@@ -1,7 +1,7 @@
 {
-  "name": "fbt-inferno-compat",
+  "name": "fbt-lit-element-compat",
   "version": "1.0.0",
-  "description": "testing fbt's compatability with inferno in compat mode",
+  "description": "testing fbt's compatability with lit-element",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development"
@@ -10,19 +10,14 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.8.0",
+    "@babel/plugin-proposal-decorators": "^7.8.0",
     "@babel/plugin-syntax-jsx": "^7.8.0",
     "@babel/preset-env": "^7.8.2",
-    "@babel/preset-react": "^7.8.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-fbt": "^0.12.1",
     "babel-plugin-fbt-runtime": "^0.9.9",
-    "babel-plugin-inferno": "^6.1.0",
     "fbt": "^0.10.6",
-    "inferno": "^7.3.3",
-    "inferno-clone-vnode": "^7.3.3",
-    "inferno-compat": "^7.3.3",
-    "inferno-create-element": "^7.3.3",
-    "react-hot-loader": "^4.12.18",
+    "lit-element": "^2.2.1",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1"
