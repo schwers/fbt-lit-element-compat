@@ -1,7 +1,7 @@
 import fbt, {
   FbtParam,
   init as initFbt,
-  IntlViewerContext,
+  IntlVariations,
 } from 'fbt';
 
 import {
@@ -10,11 +10,21 @@ import {
   customElement,
 } from 'lit-element';
 
-const LOCALE = 'en-US';
-IntlViewerContext.locale = LOCALE;
-initFbt({ translations: {
-  [ LOCALE ]: {},
-}})
+const LOCALE = 'en_US'; // use en_US instead of en-US, because we have internal local mappings using these
+// e.g. https://github.com/facebook/fbt/blob/ecf254f469fa925eea5b964fa8f0af36ab750dab/runtime/nonfb/IntlPhonologicalRewrites.js#L43
+const viewerContext = {
+  GENDER: IntlVariations.GENDER_UNKNOWN,
+  locale: LOCALE,
+};
+
+initFbt({
+  translations: {
+    [ LOCALE ]: {},
+  },
+  hooks: {
+    getViewerContext: () => viewerContext,
+  }
+});
 
 @customElement('lit-fbt-test-one')
 export class TestOne extends LitElement {
