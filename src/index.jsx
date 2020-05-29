@@ -39,8 +39,9 @@ export class TestTwo extends LitElement {
  *   - uncomment this.
  *   - run `npm start` if not doing so already to view compiler error
  *
+*/
 @customElement('lit-fbt-test-three')
-export class TestThree extends LitElement {
+export class TestThree1 extends LitElement {
   render() {
     return html`<div>
       Test three, try fbt auto-params:
@@ -48,7 +49,6 @@ export class TestThree extends LitElement {
     </div>`;
   }
 }
-*/
 
 /* Example of inability to make nested usage of lit-element markup
  * Throws a compiler error. To test:
@@ -56,25 +56,31 @@ export class TestThree extends LitElement {
  *   - uncomment this.
  *   - run `npm start` if not doing so already to view compiler error
  *
+ */
 @customElement('lit-fbt-test-three')
-export class TestThree extends LitElement {
+export class TestThree2 extends LitElement {
   render() {
     return html`<div>
       Test three, try making params manually:
       ${ <fbt desc='={bold}'>
-          <fbt.param>
+          <fbt:param name="outer param">
             { html`<strong>$
-              ${ <fbt desc="=bold"><fbt.param>bold</fbt.param></fbt> }
+              ${
+                <fbt desc="=bold">
+                  <fbt:param name="inner param">
+                    {'bold'}
+                  </fbt:param>
+                </fbt>
+              }
             </strong>` }
-          </fbt.param>
+          </fbt:param>
         </fbt> }
     </div>`;
   }
 }
-*/
 
 @customElement('lit-fbt-test-three')
-export class TestThree extends LitElement {
+export class TestThree3 extends LitElement {
   render() {
     return html`<div>
       Test three, call fbt programmatically:
@@ -88,26 +94,31 @@ export class TestThree extends LitElement {
  *   - comment other TestThree implementation
  *   - uncomment this.
  *   - run `npm start` if not doing so already to view compiler error
+ */
 @customElement('lit-fbt-test-four')
-export class TestFour extends LitElement {
+export class TestFour1 extends LitElement {
   render() {
     return html`<div>
       Test four, try making params manually:
       ${ <fbt desc='={bold}'>
           next is bold:
-          <fbt.param>
+          <fbt:param name="outer param">
             { html`<strong>$
-              ${ <fbt desc="=bold"><fbt.param>{ 'bold' }</fbt.param></fbt> }
-            </strong>` }
-          </fbt.param>
+              ${
+                <fbt desc="=bold">
+                  <fbt:param name="inner param">{'bold'}</fbt:param>
+                </fbt>
+              }
+              </strong>`
+            }
+          </fbt:param>
         </fbt> }
     </div>`;
   }
 }
-*/
 
 @customElement('lit-fbt-test-four')
-export class TestFour extends LitElement {
+export class TestFour2 extends LitElement {
   render() {
     return html`<div>
       Test four, try fbt programmatic call with params:
