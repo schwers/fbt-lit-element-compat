@@ -19,7 +19,7 @@
     "fbt": "^0.10.6",
     "lit-element": "^2.2.1",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.10.1"
   }
 }
